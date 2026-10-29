@@ -1,0 +1,74 @@
+[project]
+name = "crazyflow_itl"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = ["crazyflow>=0.4.0", "numpy"]
+
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages]
+find = {include = ["crazyflow_itl*"]}
+
+[tool.ruff]
+line-length = 100
+
+[tool.pixi.workspace]
+channels = ["https://prefix.dev/robostack-kilted", "conda-forge"]
+platforms = ["linux-64"]
+preview = ["pixi-build"]
+
+[tool.pixi.activation.env]
+SCIPY_ARRAY_API = "1"
+
+[tool.pixi.dependencies]
+python = "3.12.*"
+ros-kilted-rclpy = "*"
+ros-kilted-tf2-ros-py = "*"
+ros-kilted-geometry-msgs = "*"
+ros-kilted-sensor-msgs = "*"
+ros-kilted-std-msgs = "*"
+ros-kilted-rosgraph-msgs = "*"
+ros-kilted-simulation-interfaces = "*"
+ros-kilted-ros2launch = "*"
+ros-kilted-launch = "*"
+ros-kilted-launch-ros = "*"
+fire = "*"
+cffirmware = { path = "recipes/cffirmware" }
+
+[tool.pixi.pypi-dependencies]
+crazyflow_itl = { path = "./", editable = true }
+
+[tool.pixi.tasks]
+sim = "python examples/ros_sim.py"
+
+[tool.pixi.feature.tests.dependencies]
+pytest = "*"
+pytest-timeout = "*"
+
+[tool.pixi.feature.tests.tasks]
+tests = { cmd = "pytest -v tests", default-environment = "tests" }
+
+[tool.pixi.feature.tests.activation.env]
+ROS_AUTOMATIC_DISCOVERY_RANGE = "LOCALHOST"
+
+[tool.pixi.feature.cflib.dependencies]
+rust = ">=1.85"
+maturin = ">=1.13,<2"
+packaging = ">=25,<26"
+
+[tool.pixi.feature.cflib.pypi-dependencies]
+cflib2 = { git = "https://github.com/bitcraze/crazyflie-lib-python-v2.git", rev = "6a1f0e7255628bb8e8c2d1572ee5eb11d7cd2f2a" }
+
+[tool.pixi.feature.cflib.activation.env]
+MATURIN_PEP517_ARGS = "--config 'patch.crates-io.crazyflie-link.git=\"https://github.com/bitcraze/crazyflie-link-rs\"' --config 'patch.crates-io.crazyflie-link.rev=\"2f59526adcfca367f75ede550668e12d4b4120ac\"'"
+
+[tool.pixi.feature.gpu.pypi-dependencies]
+crazyflow = { version = ">=0.4.0", extras = ["splats"] }
+jax = { version = "*", extras = ["cuda12"] }
+
+[tool.pixi.environments]
+default = { solve-group = "default" }
+tests = { features = ["tests", "cflib"], solve-group = "default" }
+gpu = { features = ["gpu", "tests"], solve-group = "gpu" }

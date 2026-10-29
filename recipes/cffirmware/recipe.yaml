@@ -1,0 +1,25 @@
+package:
+  name: cffirmware
+  version: 1.0.0
+
+source:
+  git: https://github.com/bitcraze/crazyflie-firmware.git
+  rev: b48aba18a675fe950a88d96586fd09e49d82a38b
+
+build:
+  script:
+    # Unset ARM flags from the firmware makefile
+    - unset LDFLAGS && make cf2_defconfig bindings_python PYTHON=$PYTHON
+    - cp build/cffirmware.py build/_cffirmware*.so $SP_DIR/
+
+requirements:
+  build:
+    - ${{ compiler('c') }}
+    - make
+    - swig
+  host:
+    - python 3.12.*
+    - setuptools
+  run:
+    - python
+    - numpy

@@ -82,8 +82,8 @@ Start a sim in one terminal and its client in a second one. `--render` opens the
 pixi run sim --n_drones 2
 pixi run python examples/ros_client.py
 
-pixi run python examples/crazyflie_sim.py --n_drones 2
-pixi run -e tests python examples/crazyflie_client.py --n_drones 2
+pixi run python examples/crazyflie_sim.py
+pixi run -e tests python examples/crazyflie_client.py
 
 pixi run python examples/stepping_sim.py --n_drones 2
 pixi run python examples/stepping_client.py
