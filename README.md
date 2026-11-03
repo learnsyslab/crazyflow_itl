@@ -14,7 +14,7 @@
 
 </div>
 
-Crazyflow ITL puts [Crazyflow](https://github.com/learnsyslab/crazyflow) in the loop of real drone software. It runs the sim in real time and connects it to [cflib2](https://github.com/bitcraze/crazyflie-lib-python-v2), ROS 2 and other clients. This makes code written for real Crazyflies testable in simulation. Crazyflow ITL is designed to be highly configurable, so you can run the simulation and connectors that your use-case needs.
+Crazyflow ITL puts [Crazyflow](https://github.com/learnsyslab/crazyflow) in the loop of real drone software. It runs the sim in real time and connects it to [cflib2](https://github.com/bitcraze/crazyflie-lib-python-v2), ROS 2 and other clients. This makes code written for real drones testable in simulation. Crazyflow ITL is designed to be highly configurable, so you can run the simulation and connectors that your use-case needs.
 
 ```python
 import sys
@@ -119,7 +119,7 @@ Plugins run in list order, so queue outputs first, then the plugin that paces th
 | `SpinPlugin` | Run the callbacks of a ROS node. |
 | `RealTimePlugin` | Keep the sim in step with the wall clock. |
 | `SteppingPlugin` | Pause, play and step the sim through [simulation_interfaces](https://github.com/ros-simulation/simulation_interfaces). |
-| `CrazyfliePlugin` | Control the crazyflies with cflib2. |
+| `CrazyfliePlugin` | Control the Crazyflies with cflib2. |
 | `SplatCameraPlugin` | Stream onboard camera images rendered from Gaussian splats. |
 | `RenderPlugin` | Show the sim in the MuJoCo viewer. |
 
