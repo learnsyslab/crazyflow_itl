@@ -25,7 +25,7 @@ SCIPY_ARRAY_API = "1"
 [tool.pixi.dependencies]
 python = "3.12.*"
 ros-kilted-rclpy = "*"
-ros-kilted-tf2-ros-py = "*"
+ros-kilted-tf2-msgs = "*"
 ros-kilted-geometry-msgs = "*"
 ros-kilted-sensor-msgs = "*"
 ros-kilted-std-msgs = "*"

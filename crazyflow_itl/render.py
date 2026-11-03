@@ -11,7 +11,7 @@ class RenderPlugin:
             freq: Render rate in Hz.
         """
         self.freq = freq
-        self.sim = None
+        self.sim = None  # Set in setup
 
     def setup(self, sim: Sim) -> Sim:
         """Store the sim for clean exits."""

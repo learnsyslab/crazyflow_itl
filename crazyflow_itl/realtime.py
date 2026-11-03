@@ -21,6 +21,8 @@ class RealTimePlugin:
         self.freq = freq
         self.warn_lag = warn_lag
         self.warn_interval = warn_interval
+        self.offset = None  # Set on the first step after a reset
+        self.last_warning = -math.inf
 
     def setup(self, sim: Sim) -> Sim:
         """Start pacing and return the sim."""

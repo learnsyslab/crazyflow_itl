@@ -115,7 +115,7 @@ environments:
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros-kilted-sensor-msgs-5.5.3-hb0f4dca_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros-kilted-simulation-interfaces-1.6.1-hb0f4dca_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros-kilted-std-msgs-5.5.3-hb0f4dca_23.conda
-      - conda: https://prefix.dev/robostack-kilted/linux-64/ros-kilted-tf2-ros-py-0.41.10-hb0f4dca_23.conda
+      - conda: https://prefix.dev/robostack-kilted/linux-64/ros-kilted-tf2-msgs-0.41.10-hb0f4dca_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-action-msgs-2.3.2-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-ament-cmake-2.7.5-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-ament-cmake-core-2.7.5-np2py312h2ed9cc7_23.conda
@@ -226,10 +226,7 @@ environments:
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-simulation-interfaces-1.6.1-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-spdlog-vendor-1.7.0-np2py312h918b84f_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-std-msgs-5.5.3-np2py312h2ed9cc7_23.conda
-      - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tf2-0.41.10-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tf2-msgs-0.41.10-np2py312h2ed9cc7_23.conda
-      - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tf2-py-0.41.10-np2py312h2ed9cc7_23.conda
-      - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tf2-ros-py-0.41.10-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tracetools-8.6.0-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-type-description-interfaces-2.3.2-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-uncrustify-vendor-3.1.0-np2py312h2ed9cc7_23.conda
@@ -392,7 +389,7 @@ environments:
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros-kilted-sensor-msgs-5.5.3-hb0f4dca_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros-kilted-simulation-interfaces-1.6.1-hb0f4dca_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros-kilted-std-msgs-5.5.3-hb0f4dca_23.conda
-      - conda: https://prefix.dev/robostack-kilted/linux-64/ros-kilted-tf2-ros-py-0.41.10-hb0f4dca_23.conda
+      - conda: https://prefix.dev/robostack-kilted/linux-64/ros-kilted-tf2-msgs-0.41.10-hb0f4dca_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-action-msgs-2.3.2-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-ament-cmake-2.7.5-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-ament-cmake-core-2.7.5-np2py312h2ed9cc7_23.conda
@@ -503,10 +500,7 @@ environments:
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-simulation-interfaces-1.6.1-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-spdlog-vendor-1.7.0-np2py312h918b84f_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-std-msgs-5.5.3-np2py312h2ed9cc7_23.conda
-      - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tf2-0.41.10-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tf2-msgs-0.41.10-np2py312h2ed9cc7_23.conda
-      - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tf2-py-0.41.10-np2py312h2ed9cc7_23.conda
-      - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tf2-ros-py-0.41.10-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tracetools-8.6.0-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-type-description-interfaces-2.3.2-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-uncrustify-vendor-3.1.0-np2py312h2ed9cc7_23.conda
@@ -705,7 +699,7 @@ environments:
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros-kilted-sensor-msgs-5.5.3-hb0f4dca_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros-kilted-simulation-interfaces-1.6.1-hb0f4dca_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros-kilted-std-msgs-5.5.3-hb0f4dca_23.conda
-      - conda: https://prefix.dev/robostack-kilted/linux-64/ros-kilted-tf2-ros-py-0.41.10-hb0f4dca_23.conda
+      - conda: https://prefix.dev/robostack-kilted/linux-64/ros-kilted-tf2-msgs-0.41.10-hb0f4dca_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-action-msgs-2.3.2-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-ament-cmake-2.7.5-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-ament-cmake-core-2.7.5-np2py312h2ed9cc7_23.conda
@@ -816,10 +810,7 @@ environments:
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-simulation-interfaces-1.6.1-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-spdlog-vendor-1.7.0-np2py312h918b84f_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-std-msgs-5.5.3-np2py312h2ed9cc7_23.conda
-      - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tf2-0.41.10-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tf2-msgs-0.41.10-np2py312h2ed9cc7_23.conda
-      - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tf2-py-0.41.10-np2py312h2ed9cc7_23.conda
-      - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tf2-ros-py-0.41.10-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tracetools-8.6.0-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-type-description-interfaces-2.3.2-np2py312h2ed9cc7_23.conda
       - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-uncrustify-vendor-3.1.0-np2py312h2ed9cc7_23.conda
@@ -2736,14 +2727,14 @@ packages:
   run_exports: {}
   size: 2009
   timestamp: 1792514365363
-- conda: https://prefix.dev/robostack-kilted/linux-64/ros-kilted-tf2-ros-py-0.41.10-hb0f4dca_23.conda
-  sha256: 8741be72653a8444edf5f349b5cd300e4cf9c879c9743cf0478f392436e84cf1
-  md5: d11c5681378fb27bc6b3e3ed1978471b
+- conda: https://prefix.dev/robostack-kilted/linux-64/ros-kilted-tf2-msgs-0.41.10-hb0f4dca_23.conda
+  sha256: 2d41e38cc81c3f0477f13b536b462ba4c299f2a99ff7ba371dc46182aba2e3f1
+  md5: 1aafe951f172568f65fefb109f3d95c6
   depends:
-  - ros2-tf2-ros-py ==0.41.10
+  - ros2-tf2-msgs ==0.41.10
   run_exports: {}
-  size: 2036
-  timestamp: 1792519833858
+  size: 2020
+  timestamp: 1792515410969
 - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-action-msgs-2.3.2-np2py312h2ed9cc7_23.conda
   sha256: d2846a1e257abc9ba92e06c30b8e74964df475210a9029a0fedcf5995ebab501
   md5: 68a158eb440861f32fdf2f2ac0099536
@@ -5069,27 +5060,6 @@ packages:
   run_exports: {}
   size: 349816
   timestamp: 1792513991073
-- conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tf2-0.41.10-np2py312h2ed9cc7_23.conda
-  sha256: e57760b2e25688958db15126ccf22362b4719957bf440f7dae25eb3d04b2690f
-  md5: 958fefaa2a479d2c90afe031381c011e
-  depends:
-  - python
-  - ros2-builtin-interfaces
-  - ros2-distro-mutex 0.18.* kilted_*
-  - ros2-geometry-msgs
-  - ros2-rcutils
-  - ros2-ros-workspace
-  - ros2-rosidl-runtime-cpp
-  - __glibc >=2.17,<3.0.a0
-  - libstdcxx >=14
-  - libgcc >=14
-  - numpy >=1.25,<3
-  - ros2-distro-mutex >=0.18.0,<0.19.0a0
-  - python_abi 3.12.* *_cp312
-  license: BSD-3-Clause
-  run_exports: {}
-  size: 137335
-  timestamp: 1792514808819
 - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tf2-msgs-0.41.10-np2py312h2ed9cc7_23.conda
   sha256: 37ed93c41b00cc89414c704d9429ddaa1dbc64a9f6689695637fe6e284aba229
   md5: 7daad8c3eda510379110c514334216ac
@@ -5110,52 +5080,6 @@ packages:
   run_exports: {}
   size: 262319
   timestamp: 1792514884238
-- conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tf2-py-0.41.10-np2py312h2ed9cc7_23.conda
-  sha256: 197d1329a28fe7e9fd73f057dea4a79680eabb6dbe1f6f77c8e39063fc7d276a
-  md5: b2d61fe2fcdd75c9c47a75020d23bc99
-  depends:
-  - python
-  - ros2-builtin-interfaces
-  - ros2-distro-mutex 0.18.* kilted_*
-  - ros2-geometry-msgs
-  - ros2-rclpy
-  - ros2-ros-workspace
-  - ros2-rpyutils
-  - ros2-tf2
-  - __glibc >=2.17,<3.0.a0
-  - libstdcxx >=14
-  - libgcc >=14
-  - ros2-distro-mutex >=0.18.0,<0.19.0a0
-  - python_abi 3.12.* *_cp312
-  - numpy >=1.25,<3
-  license: BSD-3-Clause
-  run_exports: {}
-  size: 58658
-  timestamp: 1792515479399
-- conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tf2-ros-py-0.41.10-np2py312h2ed9cc7_23.conda
-  sha256: 1d3498bbcbe25e2563973e7b4055ef31146b31eb574cb79d1b70bed7f6d6d664
-  md5: 8d1651365290a9eb69713fc275d053a6
-  depends:
-  - python
-  - ros2-builtin-interfaces
-  - ros2-distro-mutex 0.18.* kilted_*
-  - ros2-geometry-msgs
-  - ros2-rclpy
-  - ros2-ros-workspace
-  - ros2-sensor-msgs
-  - ros2-std-msgs
-  - ros2-tf2-msgs
-  - ros2-tf2-py
-  - libgcc >=14
-  - __glibc >=2.17,<3.0.a0
-  - libstdcxx >=14
-  - ros2-distro-mutex >=0.18.0,<0.19.0a0
-  - python_abi 3.12.* *_cp312
-  - numpy >=1.25,<3
-  license: BSD-3-Clause
-  run_exports: {}
-  size: 50137
-  timestamp: 1792516996146
 - conda: https://prefix.dev/robostack-kilted/linux-64/ros2-tracetools-8.6.0-np2py312h2ed9cc7_23.conda
   sha256: 23db607202910e394c6aca7c1d31adac953211345ae30c8a16b141ef014ec99a
   md5: e60054e5dc1d8425fc7aedfb16807775

@@ -1,9 +1,11 @@
 import math
 from collections.abc import Sequence
-from contextlib import ExitStack
+from contextlib import ExitStack, suppress
 from typing import Protocol
 
 from crazyflow.sim import Sim
+
+from crazyflow_itl.exceptions import StopRun
 
 
 class Plugin(Protocol):
@@ -38,6 +40,8 @@ class Plugin(Protocol):
 def run(sim: Sim, plugins: Sequence[Plugin], duration: float | None = None) -> Sim:
     """Run the sim with its plugins.
 
+    A plugin ends the run early by raising StopRun.
+
     Args:
         sim: Single world simulation.
         plugins: Plugins in execution order, with rates that divide the sim frequency.
@@ -60,10 +64,11 @@ def run(sim: Sim, plugins: Sequence[Plugin], duration: float | None = None) -> S
         data = sim.data
         sim.step(chunk)
         sim.data = data
-        while duration is None or steps / sim.freq < duration:
-            for plugin, period in zip(plugins, periods):
-                if steps % period == 0:
-                    sim = plugin.step(sim)
-            sim.step(chunk)
-            steps += chunk
+        with suppress(StopRun):
+            while duration is None or steps / sim.freq < duration:
+                for plugin, period in zip(plugins, periods):
+                    if steps % period == 0:
+                        sim = plugin.step(sim)
+                sim.step(chunk)
+                steps += chunk
     return sim

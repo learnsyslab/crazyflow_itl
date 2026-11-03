@@ -24,13 +24,13 @@ from rclpy.signals import SignalHandlerOptions
 
 from crazyflow_itl import RealTimePlugin, run
 from crazyflow_itl.crazyflie import CrazyfliePlugin
-from crazyflow_itl.ros import TFPlugin, drone_names
+from crazyflow_itl.ros import TFPlugin
 
-sim = Sim(n_drones=2, control="state")
+sim = Sim(n_drones=2, control="force_torque")  # CrazyfliePlugin handles controllers
 rclpy.init(args=sys.argv, signal_handler_options=SignalHandlerOptions.NO)
 node = rclpy.create_node("crazyflow_itl")
 # Outputs, then timing, then inputs. cflib2 communicates with the drones on udp
-plugins = [TFPlugin(node, drone_names(sim)), RealTimePlugin(), CrazyfliePlugin()]
+plugins = [TFPlugin(node), RealTimePlugin(), CrazyfliePlugin()]
 with suppress(KeyboardInterrupt):
     run(sim, plugins)
 node.destroy_node()
@@ -70,7 +70,7 @@ Each sim in `examples/` comes with a client that takes off, flies a square and l
 | --- | --- |
 | `ros_sim.py` | Broadcasts the poses of the drones on TF, publishes their twists and follows commands from ROS in real time. |
 | `ros_client.py` | Streams commands along the flight to the drones of `ros_sim.py`, one per pose update on TF. |
-| `crazyflie_sim.py` | Serves the drones in state control to cflib2 clients over UDP and broadcasts their poses on TF like a motion capture system. |
+| `crazyflie_sim.py` | Serves the drones to cflib2 clients over UDP and broadcasts their poses on TF like a motion capture system. |
 | `crazyflie_client.py` | Flies the drones of `crazyflie_sim.py` with high-level `go_to` commands and logs their positions, as it would fly real Crazyflies. |
 | `stepping_sim.py` | Publishes the sim time on `/clock`, broadcasts the poses on TF, follows commands from ROS and lets ROS clients pause, play and step the sim. |
 | `stepping_client.py` | Commands the drones of `stepping_sim.py` to one waypoint at a time and steps the paused sim in between. |
@@ -116,7 +116,7 @@ Plugins run in list order, so queue outputs first, then the plugin that paces th
 | --- | --- |
 | `TFPlugin`, `TwistPlugin` | Publish drone poses on TF and their velocities as twists. |
 | `ClockPlugin` | Publish the sim time on `/clock`. |
-| `CommandPlugin` | Apply commands from a ROS topic. |
+| `CommandPlugin` | Apply commands from ROS topics. |
 | `SpinPlugin` | Run the callbacks of a ROS node. |
 | `RealTimePlugin` | Keep the sim in step with the wall clock. |
 | `SteppingPlugin` | Pause, play and step the sim through [simulation_interfaces](https://github.com/ros-simulation/simulation_interfaces). |

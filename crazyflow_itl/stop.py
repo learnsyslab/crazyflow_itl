@@ -1,5 +1,3 @@
-from functools import partial
-
 import jax.numpy as jnp
 import numpy as np
 from crazyflow.dynamics import Dynamics
@@ -24,38 +22,24 @@ class StopData:
     stopped: Array = field(metadata={CORE_NDIM_KEY: 0})
 
 
-def stop_stage(data: SimData, dynamics: Dynamics) -> SimData:
-    """Zero the thrust and controller integrators of stopped drones.
+def stop_stage(data: SimData) -> SimData:
+    """Zero the rotor velocities of stopped drones.
 
     Args:
         data: Sim data with the stop data.
-        dynamics: Sim dynamics.
 
     Returns:
         The updated sim data.
     """
     stopped = data.plugins[STOP_KEY].stopped
-    controls = data.controls
-    # The firmware resets its controller while the motors are off. Which controllers exist
-    # depends on the control mode.
-    if controls.state is not None:
-        pos_err_i = jnp.where(stopped[..., None], 0, controls.state.pos_err_i)
-        controls = controls.replace(state=controls.state.replace(pos_err_i=pos_err_i))
-    if controls.attitude is not None:
-        r_int_error = jnp.where(stopped[..., None], 0, controls.attitude.r_int_error)
-        controls = controls.replace(
-            attitude=controls.attitude.replace(r_int_error=r_int_error)
-        )
-    if dynamics == Dynamics.first_principles:
-        rotor_vel = jnp.where(stopped[..., None], 0, controls.rotor_vel)
-        return data.replace(controls=controls.replace(rotor_vel=rotor_vel))
-    attitude = controls.attitude
-    cmd = attitude.cmd.at[..., 3].set(jnp.where(stopped, 0, attitude.cmd[..., 3]))
-    return data.replace(controls=controls.replace(attitude=attitude.replace(cmd=cmd)))
+    rotor_vel = jnp.where(stopped[..., None], 0, data.controls.rotor_vel)
+    return data.replace(controls=data.controls.replace(rotor_vel=rotor_vel))
 
 
 def insert_stop_stage(sim: Sim) -> Sim:
     """Add the stop stage to the step pipeline with all drones stopped.
+
+    The sim must use first principles dynamics.
 
     Args:
         sim: The simulation.
@@ -63,10 +47,10 @@ def insert_stop_stage(sim: Sim) -> Sim:
     Returns:
         The simulation with the stage.
     """
+    assert sim.dynamics == Dynamics.first_principles
     stop = StopData(stopped=jnp.ones((1, sim.n_drones), bool, device=sim.device))
     sim.data = sim.data.replace(plugins=sim.data.plugins | {STOP_KEY: stop})
-    stage = partial(stop_stage, dynamics=sim.dynamics)
-    insert_fn_after(sim.step_pipeline, "clip_rotor_vel_cmd", stage, name=STOP_KEY)
+    insert_fn_after(sim.step_pipeline, "clip_rotor_vel_cmd", stop_stage, name=STOP_KEY)
     sim.build_default_data()
     sim.build_step_fn()
     return sim
