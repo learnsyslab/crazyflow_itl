@@ -16,23 +16,20 @@ Crazyflow ITL puts [Crazyflow](https://github.com/learnsyslab/crazyflow) in the 
 
 ```python
 import sys
-from contextlib import suppress
 
 import rclpy
 from crazyflow.sim import Sim
-from rclpy.signals import SignalHandlerOptions
 
 from crazyflow_itl import RealTimePlugin, run
 from crazyflow_itl.crazyflie import CrazyfliePlugin
 from crazyflow_itl.ros import TFPlugin
 
 sim = Sim(n_drones=2, control="force_torque")  # CrazyfliePlugin handles controllers
-rclpy.init(args=sys.argv, signal_handler_options=SignalHandlerOptions.NO)
+rclpy.init(args=sys.argv)
 node = rclpy.create_node("crazyflow_itl")
 # Outputs, then timing, then inputs. cflib2 communicates with the drones on udp
 plugins = [TFPlugin(node), RealTimePlugin(), CrazyfliePlugin()]
-with suppress(KeyboardInterrupt):
-    run(sim, plugins)
+run(sim, plugins)
 node.destroy_node()
 rclpy.shutdown()
 ```

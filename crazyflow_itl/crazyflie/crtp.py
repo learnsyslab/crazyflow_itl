@@ -52,7 +52,7 @@ def quat_decompress(comp: int) -> np.ndarray:
         comp: Quaternion in the 32 bit compressed format of the firmware.
 
     Returns:
-        Unit quaternion in xyzw order of shape (4,).
+        Unit quaternion of shape (4,).
     """
     # Firmware reference: https://github.com/bitcraze/crazyflie-firmware/blob/b48aba18a675fe950a88d96586fd09e49d82a38b/src/modules/interface/quatcompress.h#L65
     largest = comp >> 30

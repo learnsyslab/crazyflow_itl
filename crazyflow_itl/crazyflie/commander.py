@@ -64,7 +64,7 @@ class Commander:
             channel: CRTP channel of the packet.
             payload: Packet data.
             t: Sim time in seconds.
-            state: Drone state `[pos(3), vel(3), quat_xyzw(4), ang_vel(3)]` of shape (13,).
+            state: Drone state `[pos(3), vel(3), quat(4), ang_vel(3)]` of shape (13,).
 
         Returns:
             The reply datagrams.
@@ -101,7 +101,7 @@ class Commander:
 
         Args:
             t: Sim time in seconds.
-            state: Drone state `[pos(3), vel(3), quat_xyzw(4), ang_vel(3)]` of shape (13,).
+            state: Drone state `[pos(3), vel(3), quat(4), ang_vel(3)]` of shape (13,).
 
         Returns:
             The setpoint, or None if the motors are off.
