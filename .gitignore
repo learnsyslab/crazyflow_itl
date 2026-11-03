@@ -5,3 +5,4 @@ __pycache__
 .pytest_cache
 MUJOCO_LOG.TXT
 .vscode
+.claude

@@ -1,0 +1,22 @@
+name: Ruff
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  ruff-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/ruff-action@v4
+        with:
+          version: "0.17.3"
+
+  ruff-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/ruff-action@v4
+        with:
+          version: "0.17.3"
+          args: "format --check --diff"

@@ -13,6 +13,7 @@ find = {include = ["crazyflow_itl*"]}
 
 [tool.ruff]
 line-length = 100
+extend-exclude = [".claude", ".pixi"]
 
 [tool.pixi.workspace]
 channels = ["https://prefix.dev/robostack-kilted", "conda-forge"]
@@ -48,7 +49,7 @@ pytest = "*"
 pytest-timeout = "*"
 
 [tool.pixi.feature.tests.tasks]
-tests = { cmd = "pytest -v tests", default-environment = "tests" }
+tests = { cmd = "pytest -v tests", default-environment = "tests", description = "Run tests" }
 
 [tool.pixi.feature.tests.activation.env]
 ROS_AUTOMATIC_DISCOVERY_RANGE = "LOCALHOST"
@@ -68,7 +69,16 @@ MATURIN_PEP517_ARGS = "--config 'patch.crates-io.crazyflie-link.git=\"https://gi
 crazyflow = { version = ">=0.4.0", extras = ["splats"] }
 jax = { version = "*", extras = ["cuda12"] }
 
+[tool.pixi.feature.lint.dependencies]
+ruff = "*"
+
+[tool.pixi.feature.lint.tasks]
+lint = { cmd = "ruff check", description = "Lint with ruff" }
+format = { cmd = "ruff format", description = "Format with ruff" }
+check = { cmd = "ruff check && ruff format --check --diff", description = "Check lint and formatting without changes" }
+
 [tool.pixi.environments]
 default = { solve-group = "default" }
 tests = { features = ["tests", "cflib"], solve-group = "default" }
 gpu = { features = ["gpu", "tests"], solve-group = "gpu" }
+lint = { features = ["lint"], no-default-feature = true }

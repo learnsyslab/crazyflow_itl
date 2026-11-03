@@ -9,6 +9,8 @@
   [![Crazyflow](https://img.shields.io/badge/Crazyflow-0.4-8721e6.svg)](https://github.com/learnsyslab/crazyflow)
   [![cflib2](https://img.shields.io/badge/cflib2-UDP-39e6f7.svg)](https://github.com/bitcraze/crazyflie-lib-python-v2)
   [![Pixi](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/prefix-dev/pixi/main/assets/badge/v0.json)](https://pixi.sh)
+  [![Tests](https://github.com/amacati/crazyflow_itl/actions/workflows/testing.yml/badge.svg)](https://github.com/amacati/crazyflow_itl/actions/workflows/testing.yml)
+  [![Ruff](https://github.com/amacati/crazyflow_itl/actions/workflows/ruff.yml/badge.svg)](https://github.com/amacati/crazyflow_itl/actions/workflows/ruff.yml)
 
 </div>
 
