@@ -1,5 +1,3 @@
-from collections.abc import Sequence
-
 import numpy as np
 from crazyflow.sim import Sim
 from geometry_msgs.msg import TransformStamped
@@ -10,13 +8,13 @@ from crazyflow_itl.ros.utils import drone_names, stamp
 
 
 class TFPlugin:
-    """Broadcast the pose of every drone and of selected mocap bodies on /tf."""
+    """Broadcast the pose of every drone and every other mocap body on /tf."""
 
     def __init__(
         self,
         node: Node,
         drone_names: list[str] | None = None,
-        mocap_names: Sequence[str] = (),
+        mocap_names: list[str] | None = None,
         parent: str = "world",
         freq: int = 100,
     ):
@@ -25,13 +23,13 @@ class TFPlugin:
         Args:
             node: ROS node.
             drone_names: Drone frame names. Defaults to the drone model and index.
-            mocap_names: Mocap bodies of the sim, broadcast as frames of the same name.
+            mocap_names: Mocap body frame names, in mocap order. Defaults to the body names.
             parent: Parent frame.
             freq: Publish rate in Hz.
         """
         self.node = node
         self.drone_names = drone_names
-        self.mocap_names = list(mocap_names)
+        self.mocap_names = mocap_names
         self.parent = parent
         self.freq = freq
         self.frame_names = []  # Set in setup
@@ -42,9 +40,15 @@ class TFPlugin:
         """Create the publisher and return the sim."""
         self.drone_names = drone_names(sim) if self.drone_names is None else self.drone_names
         assert len(self.drone_names) == sim.n_drones
+        model = sim.mj_model
+        drone_ids = np.asarray(sim.data.core.drone_mocap_ids).tolist()
+        bodies = [model.body(i) for i in np.flatnonzero(model.body_mocapid >= 0)]
+        bodies = [body for body in bodies if body.mocapid.item() not in drone_ids]
+        if self.mocap_names is None:
+            self.mocap_names = [body.name for body in bodies]
+        assert len(self.mocap_names) == len(bodies)
         self.frame_names = self.drone_names + self.mocap_names  # Order of the poses in step
-        self.mocap_ids = [sim.mj_model.body(name).mocapid.item() for name in self.mocap_names]
-        assert all(mocap_id >= 0 for mocap_id in self.mocap_ids), "Bodies must be mocap bodies"
+        self.mocap_ids = [body.mocapid.item() for body in bodies]
         self.publisher = self.node.create_publisher(TFMessage, "/tf", 100)
         return sim
 

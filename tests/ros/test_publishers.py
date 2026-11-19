@@ -70,13 +70,23 @@ def test_tf_publishes_mocap_bodies(node, listener):
     body.add_geom(size=[0.1, 0.1, 0.1])
     sim.build_mjx()
     listener.listen(TFMessage, "/tf")
-    run(sim, [TFPlugin(node, mocap_names=["gate1"]), listener], duration=0.2)
+    run(sim, [TFPlugin(node), listener], duration=0.2)
     listener.collect()
     transform = listener.messages["/tf"][-1].transforms[-1]
     translation, quat = transform.transform.translation, transform.transform.rotation
     assert transform.child_frame_id == "gate1"
     assert [translation.x, translation.y, translation.z] == pytest.approx([1.0, 2.0, 3.0])
     assert [quat.x, quat.y, quat.z, quat.w] == pytest.approx(rotation.as_quat().tolist())
+
+
+def test_tf_custom_mocap_names(node, listener):
+    sim = Sim()
+    sim.spec.worldbody.add_body(name="gate1", mocap=True).add_geom(size=[0.1, 0.1, 0.1])
+    sim.build_mjx()
+    listener.listen(TFMessage, "/tf")
+    run(sim, [TFPlugin(node, mocap_names=["gate_a"]), listener], duration=0.2)
+    listener.collect()
+    assert listener.messages["/tf"][-1].transforms[-1].child_frame_id == "gate_a"
 
 
 def test_twist_world_frame(node, listener):
