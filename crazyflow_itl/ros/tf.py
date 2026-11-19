@@ -1,3 +1,6 @@
+from collections.abc import Sequence
+
+import numpy as np
 from crazyflow.sim import Sim
 from geometry_msgs.msg import TransformStamped
 from rclpy.node import Node
@@ -7,12 +10,13 @@ from crazyflow_itl.ros.utils import drone_names, stamp
 
 
 class TFPlugin:
-    """Broadcast the pose of every drone on /tf."""
+    """Broadcast the pose of every drone and of selected mocap bodies on /tf."""
 
     def __init__(
         self,
         node: Node,
-        names: list[str] | None = None,
+        drone_names: list[str] | None = None,
+        mocap_names: Sequence[str] = (),
         parent: str = "world",
         freq: int = 100,
     ):
@@ -20,36 +24,47 @@ class TFPlugin:
 
         Args:
             node: ROS node.
-            names: Drone frame names. Defaults to the drone model and index.
+            drone_names: Drone frame names. Defaults to the drone model and index.
+            mocap_names: Mocap bodies of the sim, broadcast as frames of the same name.
             parent: Parent frame.
             freq: Publish rate in Hz.
         """
         self.node = node
-        self.names = names
+        self.drone_names = drone_names
+        self.mocap_names = list(mocap_names)
         self.parent = parent
         self.freq = freq
+        self.frame_names = []  # Set in setup
+        self.mocap_ids = []  # Set in setup
         self.publisher = None  # Set in setup
 
     def setup(self, sim: Sim) -> Sim:
         """Create the publisher and return the sim."""
-        self.names = drone_names(sim) if self.names is None else self.names
-        assert len(self.names) == sim.n_drones
+        self.drone_names = drone_names(sim) if self.drone_names is None else self.drone_names
+        assert len(self.drone_names) == sim.n_drones
+        self.frame_names = self.drone_names + self.mocap_names  # Order of the poses in step
+        self.mocap_ids = [sim.mj_model.body(name).mocapid.item() for name in self.mocap_names]
+        assert all(mocap_id >= 0 for mocap_id in self.mocap_ids), "Bodies must be mocap bodies"
         self.publisher = self.node.create_publisher(TFMessage, "/tf", 100)
         return sim
 
     def step(self, sim: Sim) -> Sim:
-        """Broadcast one transform per drone and return the sim."""
+        """Broadcast one transform per drone and body and return the sim."""
         header_stamp = stamp(self.node, sim)
         states = sim.data.states
+        mocap_pos = np.asarray(sim.mjx_data.mocap_pos[0])[self.mocap_ids]
+        mocap_quat = np.asarray(sim.mjx_data.mocap_quat[0])[self.mocap_ids]  # MuJoCo order
+        pos = np.concatenate([states.pos[0], mocap_pos])
+        quat = np.concatenate([states.quat[0], np.roll(mocap_quat, -1, axis=-1)])
         message = TFMessage()
-        for name, pos, quat in zip(self.names, states.pos[0].tolist(), states.quat[0].tolist()):
+        for name, p, q in zip(self.frame_names, pos.tolist(), quat.tolist()):
             transform = TransformStamped()
             transform.header.stamp = header_stamp
             transform.header.frame_id = self.parent
             transform.child_frame_id = name
             translation, rotation = transform.transform.translation, transform.transform.rotation
-            translation.x, translation.y, translation.z = pos
-            rotation.x, rotation.y, rotation.z, rotation.w = quat
+            translation.x, translation.y, translation.z = p
+            rotation.x, rotation.y, rotation.z, rotation.w = q
             message.transforms.append(transform)
         self.publisher.publish(message)
         return sim

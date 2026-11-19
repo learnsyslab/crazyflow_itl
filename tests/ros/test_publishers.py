@@ -61,6 +61,24 @@ def test_tf_custom_names(node, listener):
     assert set(last) == {"cf10", "cf52"}
 
 
+def test_tf_publishes_mocap_bodies(node, listener):
+    sim = Sim()
+    rotation = Rotation.from_euler("z", 90, degrees=True)
+    body = sim.spec.worldbody.add_body(
+        name="gate1", pos=[1.0, 2.0, 3.0], quat=rotation.as_quat(scalar_first=True), mocap=True
+    )
+    body.add_geom(size=[0.1, 0.1, 0.1])
+    sim.build_mjx()
+    listener.listen(TFMessage, "/tf")
+    run(sim, [TFPlugin(node, mocap_names=["gate1"]), listener], duration=0.2)
+    listener.collect()
+    transform = listener.messages["/tf"][-1].transforms[-1]
+    translation, quat = transform.transform.translation, transform.transform.rotation
+    assert transform.child_frame_id == "gate1"
+    assert [translation.x, translation.y, translation.z] == pytest.approx([1.0, 2.0, 3.0])
+    assert [quat.x, quat.y, quat.z, quat.w] == pytest.approx(rotation.as_quat().tolist())
+
+
 def test_twist_world_frame(node, listener):
     quat = Rotation.from_euler("z", 90, degrees=True).as_quat()
     sim = make_sim(

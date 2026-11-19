@@ -1,3 +1,4 @@
+import glfw
 from crazyflow.sim import Sim
 
 
@@ -14,8 +15,10 @@ class RenderPlugin:
         self.sim = None  # Set in setup
 
     def setup(self, sim: Sim) -> Sim:
-        """Store the sim for clean exits."""
+        """Open the viewer and return the sim."""
         self.sim = sim
+        sim.render()
+        glfw.swap_interval(0)  # Disable vsync for faster rendering
         return sim
 
     def step(self, sim: Sim) -> Sim:
